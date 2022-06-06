@@ -82,9 +82,13 @@ def make_tree():
         the_list = the_tree.inorder()
         print(the_list)
 
-        the_tree.remove(Pair("C"))
+        the_tree.remove(Pair("g"))
+        the_list = the_tree.inorder()
+
         print(the_list)
 
+        print(str(the_tree))
+        print(the_tree.height())
 
         # print("h is", the_tree.height())
         # print("size is ", the_tree.size())
