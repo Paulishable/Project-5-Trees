@@ -275,3 +275,23 @@ class BST:
     def __repr__(self):
         return repr(self.root)
 
+    def check_balance(self):
+        return self.check_balance2(self.root)
+
+    def check_balance2(self, node):
+        #if tree is empty,return True
+        if node is None:
+            return True
+        #check height of left subtree
+        lheight= self.height(node.left)
+        rheight = self.height(node.right)
+        #if difference in height is greater than 1, return False
+        if(abs(lheight-rheight)>1):
+            return False
+        #check if left subtree is balanced
+        lcheck=check_balance2(node.leftChild)
+        #check if right subtree is balanced
+        rcheck=check_balance2(node.rightChild)
+        #if both subtree are balanced, return True
+        if lcheck==True and rcheck==True:
+            return True

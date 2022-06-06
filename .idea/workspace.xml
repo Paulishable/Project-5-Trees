@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb6d1878-1386-4b57-9247-d9a93c897cbc" name="Changes" comment="added remove - but doesn't work">
+    <list default="true" id="cb6d1878-1386-4b57-9247-d9a93c897cbc" name="Changes" comment="remove works - added graphic rep">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bst.py" beforeDir="false" afterPath="$PROJECT_DIR$/bst.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654487427245</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="remove works - added graphic rep">
+      <created>1654488144334</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1654488144334</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,6 +120,7 @@
     <MESSAGE value="tree working" />
     <MESSAGE value="pre and post order implemented" />
     <MESSAGE value="added remove - but doesn't work" />
-    <option name="LAST_COMMIT_MESSAGE" value="added remove - but doesn't work" />
+    <MESSAGE value="remove works - added graphic rep" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove works - added graphic rep" />
   </component>
 </project>

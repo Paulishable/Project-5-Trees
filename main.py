@@ -90,6 +90,9 @@ def make_tree():
         print(str(the_tree))
         print(the_tree.height())
 
+        is_balanced = the_tree.check_balance()
+        print("The tree is balanced.", is_balanced)
+
         # print("h is", the_tree.height())
         # print("size is ", the_tree.size())
         #
