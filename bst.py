@@ -1,5 +1,7 @@
-global list_of_items
-list_of_items = []
+global inorder_list
+inorder_list = []
+preorder_list = []
+postorder_list = []
 
 
 class Node:
@@ -16,8 +18,8 @@ class BST:
 
     def size(self):
         the_count = 0
-        global list_of_items
-        list_of_items = []
+        global inorder_list
+        inorder_list = []
 
         if self.root is None:
             return the_count
@@ -133,25 +135,64 @@ class BST:
             return None
 
     def inorder(self):
-        global list_of_items
-        list_of_items = []
+        global inorder_list
+        inorder_list = []
         return self.inorder2(self.root)
 
     def inorder2(self, item):
-        global list_of_items
+        global inorder_list
         if item is None:
             return
 
         self.inorder2(item.left)
-        list_of_items.append(item.key)
+        inorder_list.append(item.key)
         self.inorder2(item.right)
-        return list_of_items
+        return inorder_list
 
     def preorder(self):
-        pass
+        global preorder_list
+        preorder_list = []
+        self.preorder2(self.root)
+        return preorder_list
+
+    def preorder2(self, node):
+        # if node is None,return
+        global preorder_list
+        if node is None:
+            return
+        # print the current node
+       # print(node.key, end=" ,")
+        preorder_list.append(node.key)
+        #print("pre from preorder ", pre_list)
+        # traverse left subtree
+        self.preorder2(node.left)
+
+        # traverse right subtree
+        self.preorder2(node.right)
+
+        return preorder_list
+
 
     def postorder(self):
-        pass
+        global postorder_list
+        postorder_list = []
+        node = self.root
+        self.postorder2(node)
+        return postorder_list
+
+
+    def postorder2(self, node):
+        # if root is None return
+        if node is None:
+            return
+        # traverse left subtree
+        self.postorder2(node.left)
+        # traverse right subtree
+        self.postorder2(node.right)
+        # traverse root
+        print(node.key)
+        postorder_list.append(node.key)
+        return postorder_list
 
     def rebalance(self):
         pass

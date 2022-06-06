@@ -77,13 +77,21 @@ def make_tree():
                 if not char.isspace() and char not in any_punctuation:
                     this_char = Pair(char, 1)
                     the_tree = the_tree.add_item(this_char)
-            print()
+        print()
 
-            the_list = the_tree.inorder()
-            print(the_list)
+        the_list = the_tree.inorder()
+        print(the_list[27])
 
-            print("h is", the_tree.height())
-            print("size is ", the_tree.size())
+        print("h is", the_tree.height())
+        print("size is ", the_tree.size())
+
+        pre_list = the_tree.preorder()
+        print("prelist is ", pre_list[27])
+        print("prelist len ", len(pre_list))
+
+        the_post_list = the_tree.postorder()
+        print(the_post_list[27])
+        print("the_post_list len ", len(the_post_list))
 
     # for line in data_file:
     #     line = line.strip()
