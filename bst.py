@@ -80,8 +80,56 @@ class BST:
                             current_node = current_node.right
             return self
 
-    def remove(self, item):
-        pass
+    def remove(self, key):
+        parent = None
+        current_node = self.root
+
+        # Search for the node.
+        while current_node is not None:
+
+            # Check if current_node has a matching key.
+            if current_node.key == key:
+                if current_node.left is None and current_node.right is None:  # Case 1
+                    if parent is None:  # Node is root
+                        self.root = None
+                    elif parent.left is current_node:
+                        parent.left = None
+                    else:
+                        parent.right = None
+                    return  # Node found and removed
+                elif current_node.left is not None and current_node.right is None:  # Case 2
+                    if parent is None:  # Node is root
+                        self.root = current_node.left
+                    elif parent.left is current_node:
+                        parent.left = current_node.left
+                    else:
+                        parent.right = current_node.left
+                    return  # Node found and removed
+                elif current_node.left is None and current_node.right is not None:  # Case 2
+                    if parent is None:  # Node is root
+                        self.root = current_node.right
+                    elif parent.left is current_node:
+                        parent.left = current_node.right
+                    else:
+                        parent.right = current_node.right
+                    return  # Node found and removed
+                else:  # Case 3
+                    # Find successor (leftmost child of right subtree)
+                    successor = current_node.right
+                    while successor.left is not None:
+                        successor = successor.left
+                    current_node.key = successor.key  # Copy successor to current node
+                    parent = current_node
+                    current_node = current_node.right  # Remove successor from right subtree
+                    key = parent.key  # Loop continues with new key
+            elif current_node.key < key:  # Search right
+                parent = current_node
+                current_node = current_node.right
+            else:  # Search left
+                parent = current_node
+                current_node = current_node.left
+
+        return  # Node not found
 
     def find(self, desired_key):
         if self.is_empty():

@@ -80,18 +80,22 @@ def make_tree():
         print()
 
         the_list = the_tree.inorder()
-        print(the_list[27])
+        print(the_list)
 
-        print("h is", the_tree.height())
-        print("size is ", the_tree.size())
+        the_tree.remove(Pair("C"))
+        print(the_list)
 
-        pre_list = the_tree.preorder()
-        print("prelist is ", pre_list[27])
-        print("prelist len ", len(pre_list))
 
-        the_post_list = the_tree.postorder()
-        print(the_post_list[27])
-        print("the_post_list len ", len(the_post_list))
+        # print("h is", the_tree.height())
+        # print("size is ", the_tree.size())
+        #
+        # pre_list = the_tree.preorder()
+        # print("prelist is ", pre_list[27])
+        # print("prelist len ", len(pre_list))
+        #
+        # the_post_list = the_tree.postorder()
+        # print(the_post_list[27])
+        # print("the_post_list len ", len(the_post_list))
 
     # for line in data_file:
     #     line = line.strip()
