@@ -69,47 +69,46 @@ def make_tree():
     the_tree = BST()
 
     with open("around-the-world-in-80-days-3.txt", "r", encoding="utf-8") as data_file:
-        #line_1 = data_file.readline().replace("\n", "")
-        #print(line_1)
         for line in data_file:
             any_punctuation = string.punctuation
             for char in line:
                 if not char.isspace() and char not in any_punctuation:
                     this_char = Pair(char, 1)
-                    the_tree = the_tree.add_item(this_char)
-        print()
+                    the_tree.add_item(this_char)
+    # print()
+    #
+    print(the_tree.inorder())
+    # # #
+    # print(str(the_tree))  # prints out a graphic of the tree
+    # # print("the height of the tree is: ", the_tree.height())
+    # print("Is the tree balanced?", the_tree.check_balance())
+    # print("size is", the_tree.size())
+    #
+    # print()
+    # print("the OLD tree height is: ", the_tree.height())
+    # the_tree.rebalance()
+    # print("Is the tree balanced?", n.check_balance())
+    # print(the_tree.size())
+    # print(str(the_tree))  # prints out a graphic of the tree
+    # print("the NEW tree size is: ", the_tree.size())
+    # print("the NEW tree height is: ", the_tree.height())
+    # print("Is the NEW tree balanced?", the_tree.check_balance())
 
-        the_list = the_tree.inorder()
-        print(the_list)
 
-        the_tree.remove(Pair("g"))
-        the_list = the_tree.inorder()
 
-        print(the_list)
+    # a_root = the_tree.sorted_array_to_tree(the_tree.inorder())
 
-        print(str(the_tree))
-        print(the_tree.height())
-
-        is_balanced = the_tree.check_balance()
-        print("The tree is balanced.", is_balanced)
-
-        # print("h is", the_tree.height())
-        # print("size is ", the_tree.size())
-        #
-        # pre_list = the_tree.preorder()
-        # print("prelist is ", pre_list[27])
-        # print("prelist len ", len(pre_list))
-        #
-        # the_post_list = the_tree.postorder()
-        # print(the_post_list[27])
-        # print("the_post_list len ", len(the_post_list))
-
-    # for line in data_file:
-    #     line = line.strip()
-    #     for char in line:
-    #         print("-----------------", f"char: {char}\n")
+    # the_tree.rebalance()
+    # # new_tree.add_item(a_root)a_root
+    #
+    # print(the_tree.size())
+    # print(str(the_tree))  # prints out a graphic of the tree
+    # print("the NEW tree size is: ", the_tree.size())
+    # print("the NEW tree height is: ", the_tree.height())
+    # print("Is the NEW tree balanced?", the_tree.check_balance())
     #
     data_file.close()
+    return the_tree
 
 
 def main():
