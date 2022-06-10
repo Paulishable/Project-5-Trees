@@ -74,13 +74,23 @@ def make_tree():
             for char in line:
                 if not char.isspace() and char not in any_punctuation:
                     this_char = Pair(char, 1)
-                    the_tree.add_item(this_char)
+                    the_tree.add(this_char)
     # print()
     #
-    print(the_tree.inorder())
+
+
     # # #
-    # print(str(the_tree))  # prints out a graphic of the tree
-    # # print("the height of the tree is: ", the_tree.height())
+    # print(the_tree.root)  # prints out a graphic of the tree
+    #
+    print(str(the_tree))  # prints out a graphic of the tree
+    print("the height of the tree is: ", the_tree.height())
+    # print("the height 2  of the tree is: ", the_tree.height2(the_tree.root))
+
+    # print("inorder: ", the_tree.postorder())
+    # the_tree.remove(Pair("D"))
+    # print("inorder: ", the_tree.inorder())
+
+
     # print("Is the tree balanced?", the_tree.check_balance())
     # print("size is", the_tree.size())
     #
@@ -94,19 +104,19 @@ def make_tree():
     # print("the NEW tree height is: ", the_tree.height())
     # print("Is the NEW tree balanced?", the_tree.check_balance())
 
-
-
     # a_root = the_tree.sorted_array_to_tree(the_tree.inorder())
 
-    # the_tree.rebalance()
-    # # new_tree.add_item(a_root)a_root
+    the_tree.rebalance()
+    # new_tree.add_item(a_root)a_root
+
+    print(the_tree.size())
+    print(str(the_tree))  # prints out a graphic of the tree
+    print("the NEW tree size is: ", the_tree.size())
+    print("the NEW tree height is: ", the_tree.height())
+    print("Is the NEW tree balanced?", the_tree.check_balance())
     #
-    # print(the_tree.size())
-    # print(str(the_tree))  # prints out a graphic of the tree
-    # print("the NEW tree size is: ", the_tree.size())
-    # print("the NEW tree height is: ", the_tree.height())
-    # print("Is the NEW tree balanced?", the_tree.check_balance())
-    #
+
+    print(the_tree.find(Pair("A")))
     data_file.close()
     return the_tree
 

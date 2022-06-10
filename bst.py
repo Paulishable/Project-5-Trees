@@ -1,41 +1,21 @@
 """This is the Binary Search Tree Class (including Node Class"""
 
-# global inorder_list
-
-inorder_list = []
-preorder_list = []
-postorder_list = []
-middle_value = 0
-list_left = []
-list_right = []
-new_root: int = 0
-
-
-def find_mid_value_in_list(a_list):
-    """find_mid_value_in_list"""
-    return a_list[len(a_list) // 2]
-
-
-def the_left_half_of(a_list):
-    """find the_left_half_of a list"""
-
-    mid = len(a_list) // 2
-    return a_list[0: mid]
-
-
-def the_right_half_of(a_list):
-    """find the_right_half_of a list"""
-
-    mid = len(a_list) // 2
-    return a_list[mid + 1: len(a_list)]
-
 
 class Node:
     """defines the Node of the BST"""
+
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
+
+    def add_left_child(self, node):
+        """add a left child for completeness"""
+        self.left = node
+
+    def add_right_child(self, node):
+        """add a right child for completeness"""
+        self.right = node
 
     def __repr__(self):
         lines = []
@@ -67,13 +47,17 @@ class Node:
 
 class BST:
     """class definition for the BST"""
+
     def __init__(self):
         self.root = None
+
+    def __repr__(self):
+        return repr(self.root)
 
     def size(self):
         """calculate the BST size"""
         the_count = 0
-#        inorder_list = []
+        #        inorder_list = []
 
         if self.root is None:
             return the_count
@@ -90,18 +74,26 @@ class BST:
 
     def height(self):
         """calculate the total height of the tree"""
+        # height for this project is node based, not edge based
+        # function 'height_subtree' calculates 'edge based' height
+        # add 1 for node based
+        node_based_height = True
         node = self.root
-        return self.height_subtree(node)
+        height = self.height_subtree(node)
+        if node_based_height:
+            height += 1
+        return height
 
     def height_subtree(self, node):
         """calculate the height of a subtree"""
+        # calculates height based on edges
         if node is None:
             return -1
         left_height = self.height_subtree(node.left)
         right_height = self.height_subtree(node.right)
         return 1 + max(left_height, right_height)
 
-    def add_item(self, a_pair):
+    def add(self, a_pair):
         """create a node from an item of the 'Pair' class and add it to the BST"""
         node = Node(a_pair)
         # check to see if it is in the tree already
@@ -136,7 +128,7 @@ class BST:
         return self
 
     def remove(self, key):
-        """remove a node from the BST using the key"""
+        """remove a node from the BST using the key which is a Pair class item"""
         parent = None
         current_node = self.root
 
@@ -153,7 +145,8 @@ class BST:
                     else:
                         parent.right = None
                     return  # Node found and removed
-                elif current_node.left is not None and current_node.right is None:  # Case 2
+
+                if current_node.left is not None and current_node.right is None:  # Case 2
                     if parent is None:  # Node is root
                         self.root = current_node.left
                     elif parent.left is current_node:
@@ -161,7 +154,8 @@ class BST:
                     else:
                         parent.right = current_node.left
                     return  # Node found and removed
-                elif current_node.left is None and current_node.right is not None:  # Case 2
+
+                if current_node.left is None and current_node.right is not None:  # Case 2
                     if parent is None:  # Node is root
                         self.root = current_node.right
                     elif parent.left is current_node:
@@ -169,15 +163,17 @@ class BST:
                     else:
                         parent.right = current_node.right
                     return  # Node found and removed
-                else:  # Case 3
-                    # Find successor (leftmost child of right subtree)
-                    successor = current_node.right
-                    while successor.left is not None:
-                        successor = successor.left
-                    current_node.key = successor.key  # Copy successor to current node
-                    parent = current_node
-                    current_node = current_node.right  # Remove successor from right subtree
-                    key = parent.key  # Loop continues with new key
+
+                # Case 3
+                # Find successor (leftmost child of right subtree)
+                successor = current_node.right
+                while successor.left is not None:
+                    successor = successor.left
+                current_node.key = successor.key  # Copy successor to current node
+                parent = current_node
+                current_node = current_node.right  # Remove successor from right subtree
+                key = parent.key  # Loop continues with new key
+
             elif current_node.key < key:  # Search right
                 parent = current_node
                 current_node = current_node.right
@@ -196,11 +192,11 @@ class BST:
         while current_item is not None:
             # Return the node if the key matches.
             if current_item.key == desired_key:
-                return current_item
+                return current_item.key
 
             # Navigate to the left if the search key is
             # less than the node's key.
-            elif desired_key < current_item.key:
+            if desired_key < current_item.key:
                 current_item = current_item.left
 
             # Navigate to the right if the search key is
@@ -224,7 +220,7 @@ class BST:
 
             # Navigate to the left if the search key is
             # less than the node's key.
-            elif desired_key < current_item.key:
+            if desired_key < current_item.key:
                 current_item = current_item.left
 
             # Navigate to the right if the search key is
@@ -239,107 +235,61 @@ class BST:
 
     def inorder(self):
         """initiate inorder pass (needs function inorder2)"""
-        global inorder_list
         inorder_list = []
-        return self.inorder2(self.root)
+        return self.inorder2(self.root, inorder_list)
 
-    def inorder2(self, item):
+    def inorder2(self, item, inorder_list):
         """perform inorder (needs function 'inorder')"""
-        global inorder_list
         if item is None:
             return inorder_list
 
-        self.inorder2(item.left)
+        self.inorder2(item.left, inorder_list)
         inorder_list.append(item.key)
-        self.inorder2(item.right)
+        self.inorder2(item.right, inorder_list)
         return inorder_list
 
     def preorder(self):
         """perform preorder on BST (needs preorder2)"""
-        global preorder_list
         preorder_list = []
-        self.preorder2(self.root)
+        self.preorder2(self.root, preorder_list)
         return preorder_list
 
-    def preorder2(self, node):
+    def preorder2(self, node, preorder_list):
         """execute preorder from function (preorder)"""
-        # if node is None,return
-        global preorder_list
         if node is None:
-
             return preorder_list
         # print the current node
         # print(node.key, end=" ,")
         preorder_list.append(node.key)
         # print("pre from preorder ", pre_list)
         # traverse left subtree
-        self.preorder2(node.left)
+        self.preorder2(node.left, preorder_list)
 
         # traverse right subtree
-        self.preorder2(node.right)
+        self.preorder2(node.right, preorder_list)
 
         return preorder_list
 
     def postorder(self):
         """perform postorder and return a list to calling function (needs postorder2)"""
         node = self.root
-        self.postorder2(node)
+        postorder_list = []
+        self.postorder2(node, postorder_list)
         return postorder_list
 
-    def postorder2(self, node):
+    def postorder2(self, node, postorder_list):
         """perform postorder and return a list to calling function (postorder)"""
         # if root is None return
         if node is None:
             return None
         # traverse left subtree
-        self.postorder2(node.left)
+        self.postorder2(node.left, postorder_list)
         # traverse right subtree
-        self.postorder2(node.right)
+        self.postorder2(node.right, postorder_list)
         # traverse root
         # print(node.key)
         postorder_list.append(node.key)
         return postorder_list
-
-    # def rebalance(self):
-    #     global inorder_list, middle_value, list_right, list_left, new_root
-    #
-    #     inorder_list = []
-    #     inorder_list = self.inorder()
-    #     list_left = the_left_half_of(inorder_list)
-    #     list_right = the_right_half_of(inorder_list)
-    #     new_node = find_mid_value_in_list(inorder_list)
-    #     self.__init__()
-    #
-    #     self.add_item(new_node)
-    #     self.rebalance_self()
-
-    # def rebalance_self(self):
-    #     global inorder_list, middle_value, list_right, list_left
-    #
-    #     print("len(list_left)", len(list_left))
-    #     print("len(list_right", len(list_right))
-    #
-    #     if len(list_left) <= 0 or len(list_right) <= 0:
-    #         return
-    #
-    #     print("list_left", list_left)
-    #     print("list_right", list_right)
-    #     new_node = find_mid_value_in_list(list_left)
-    #     self.add_item(new_node)
-    #
-    #     new_node = find_mid_value_in_list(list_right)
-    #     self.add_item(new_node)
-    #
-    #     list_left = the_left_half_of(list_left)
-    #     list_right = the_right_half_of(list_left)
-    #
-    #     print("list_left", list_left)
-    #     print("list_right", list_right)
-    #
-    #     self.rebalance_self()
-
-    def __repr__(self):
-        return repr(self.root)
 
     def check_balance(self):
         """return True if the BST is balanced"""
@@ -352,10 +302,10 @@ class BST:
             return True
         # check height of left subtree
         l_height = self.height_subtree(node.left)
-        rheight = self.height_subtree(node.right)
+        r_height = self.height_subtree(node.right)
 
         # if difference in height is greater than 1, return False
-        if abs(l_height - rheight) > 1:
+        if abs(l_height - r_height) > 1:
             return False
         # check if left subtree is balanced
         l_check = self.check_balance_helper(node.left)
@@ -367,34 +317,27 @@ class BST:
 
     def rebalance(self):
         """rebuild a BST with a sorted array or list"""
-        an_arr = self.inorder()
+        lyst = self.inorder()
         self.__init__()
-        self.sorted_array_to_tree(an_arr)
+        self.rebalance_helper(lyst)
         return self
 
-    # function to convert sorted array to a
-    # balanced BST
-    # input : sorted array of integers
-    # output: root node of balanced BST
-    def sorted_array_to_tree(self, arr):
+    def rebalance_helper(self, lyst):
         """Convert a sortd array or list to a BST"""
-        if not arr:
+        if not lyst:
             return None
 
-        # find middle
-        mid = (len(arr)) // 2
+        center_index = (len(lyst)) // 2
 
-        # make the middle element the root
-        root = Node(arr[mid])
+        root = Node(lyst[center_index])
         self.add_node(root)
 
-        # left subtree of root has all
-        # values <arr[mid]
-        root.left = self.sorted_array_to_tree(arr[:mid])
+        left_list = lyst[:center_index]
+        right_list = lyst[center_index + 1:]
 
-        # right subtree of root has all
-        # values >arr[mid]
-        root.right = self.sorted_array_to_tree(arr[mid + 1:])
+        root.left = self.rebalance_helper(left_list)
+        root.right = self.rebalance_helper(right_list)
+
         return root
 
     def add_node(self, node):
